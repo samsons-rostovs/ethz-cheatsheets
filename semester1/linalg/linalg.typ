@@ -89,7 +89,7 @@ Assigns _non-negative_ "sizes" to vectors.
 - *1-Norm:* $sum abs(v_i)$ (measures travelled dist along axis)
 - *2-Norm (Euclidian):* $sqrt(sum v_i^2)$ (geometric distance)
 - *p-Norm (Generalization):* $root(p, (sum v_i^p))$
-- *Max-Norm:* $max{v_i}$
+- *Max-Norm:* $max{abs(v_i}$
 
 Other:
 - $norm(v)^2 = v dot v$
@@ -111,7 +111,7 @@ Other:
 == Angles
 Given $u, v in RR^n$ and $u' = u/norm(u), v' = v/norm(v)$ unitized vectors: $cos(alpha) = u' dot v'$.
 
-$sin: 0 arrow.bar.r sqrt(0)/2, 30 arrow.bar.r sqrt(1)/2, 45 arrow.bar.r sqrt(2)/2, 60 arrow.bar.r sqrt(3)/2, 90 arrow.bar.r sqrt(4)/2$
+$sin: 0degree arrow.bar.r sqrt(0)/2, 30degree arrow.bar.r sqrt(1)/2, 45degree arrow.bar.r sqrt(2)/2, 60degree arrow.bar.r sqrt(3)/2, 90degree arrow.bar.r sqrt(4)/2$
 
 == Inequalities
 === Cauchy-Schwarz
@@ -133,7 +133,7 @@ $norm(a + b) <= norm(a) + norm(b)$, meaning the direct way is always $<=$ the in
 
 == CR Decomposition
 
-$C:$ independent columns, $R:$ combinations to get back to $A$. Basically run RREF on $A$ and put identity columns into $C$ and copy RREF without the ending zero-rows into $R$.
+Run Gauss-Jordan on $A in RR^(m times n)$ to compute rref($A$). Let $C$ = original columns of $A$ corresponding to pivot columns in rref($A$). Let $R$ = rref($A$) rows with zero-rows removed.
 
 = Matrices and Linear Transformations
 
@@ -262,7 +262,7 @@ For any $A x = b$ we have three options: 1) No solution 2) One solution 3) Infin
 
 We are given $A$ a basis for some space and want to orthonormalize into $Q$.
 *Steps:*
-1. Normalize $v_1 -> q_1$
+1. Normalize $v_1$ to get $q_1 = v_1/(norm(v_1)$
 2. Subtract projection from previous vectors from current vector:
   1. $v'_n = v_n - sum_(i = 1)^(n-1) "proj"_(q_i) (v_n) = v_n - sum_(i = 1)^(n-1) ((v_n dot q_i) q_i)$
   2. $q_n = v'_n/norm(v'_n)$
@@ -306,13 +306,13 @@ Assume $A x = b$ does not always have a solution, however we want to get the "be
 
 == Left Pseudoinverse for Full Column Rank
 
-Use a left pseudoinverse for $f: RR^n -> RR^m "s.t." n < m$, meaning we are transforming from a smaller space to a larger space. This means that we are not loosing information from the input space but we cannot represent the whole output space, meaning $b$ will probably not lie in $C(A)$ ($A$ is a basis and has full column rank), hence we basically do least squares since the system is *overdetermined*. 
+Use a left pseudoinverse for $f: RR^n -> RR^m "s.t." n < m$, meaning we are transforming from a smaller space to a larger space. This means that we are not losing information from the input space but we cannot represent the whole output space, meaning $b$ will probably not lie in $C(A)$ ($A$ is a basis and has full column rank). Since the system is *overdetermined* (more equations than unknowns), the least-squares solution minimizes $norm(A x - b)$, and is given by the left pseudoinverse: $x = A^dagger b = (A^T A)^(-1) A^T b$ 
 
-Hence $A^dagger_"left" = (A^T A)^(-1) A^T ) => A^dagger A = I$
+Hence $A^dagger_"left" = (A^T A)^(-1) A^T => A^dagger A = I$
 
 == Right Pseudoinverse for Full Row Rank
 
-Use right pseudoinverse for $f: RR^n -> RR^m "s.t." n > m$, meaning we are transforming from a larger space to a smaller space and hence loosing information. This makes the system underdetermined (many possible solutions). This means that there exist a non-trivial nullspace. Here the right-pseudoinverse minimizes the norm of our solution.
+Use right pseudoinverse for $f: RR^n -> RR^m "s.t." n > m$, meaning we are transforming from a larger space to a smaller space and hence losing information. This makes the system underdetermined (many possible solutions). This means that there exist a non-trivial nullspace. Here the right-pseudoinverse minimizes the norm of our solution.
 
 Hence $A^dagger_"right" = A^T (A A^T)^(-1) => A A^dagger = I$
 
@@ -454,8 +454,8 @@ Since $A v_i = lambda_i v_i = v_i lambda_i => A V = V Lambda => A = V Lambda V^(
 - $det(A - lambda I)$ is a polynomial in $lambda$ with degree $n$.
   - The coefficient of $lambda^n$ is $(-1)^n$.
 - For $k$ distinct Eigenvalues, there exist $k$ independent Eigenvectors.
-- The characteristic polynomial can be factored as $0 = det(A-x I) = (-1)^n (x - lambda_1)dot ... dot (x-lambda_n)$.
-- $det(A) = product lambda_i$ because $det(A) = det(A - 0 I) = (-1)^n dot (lambda_1) dot ... dot (-lambda_n)$
+- The characteristic polynomial can be factored as $0 = det(A-lambda I) = (-1)^n (lambda - lambda_1)dot ... dot (lambda-lambda_n) = (-1)^n product_(i=1)^n lambda_i$.
+- $det(A) = product_(i=1)^n lambda_i$, follows from setting $lambda = 0$ in the characteristic polynomial (the $(–1)^n$ cancels out).
 - $"Tr"(A) = sum lambda_i$. (Also $"Tr"(A B) = "Tr"(B A) and "Tr"(A (B C)) = "Tr"((B C) A)$)
 - A projection matrix $P$ projecting onto $U in RR^n$ has two Eigenvalues of $0, 1$.
 

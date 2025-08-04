@@ -336,6 +336,39 @@ Given $A in RR^(m times n)$ and $b in RR^m$ one and exactly one of these stateme
 1. *Feasibility:* $exists x in RR^n "s.t." A x <= b and x >= 0$ (there exists a non-negative solution)
 2. *Infeasibility Certificate:* $exists y in RR^m "s.t." A^T y >= 0 and y >= 0 and b dot y < 0$ (There's a non-negative linear combination of the inequalities that leads to a contradiction)
 
+== HS24 Exercise 
+
+Let $m, n in NN^+$ be arbitrary and let $A in QQ^(m times n)$, $b in QQ^m$, $c in QQ^n$, and $d in QQ$ be arbitrary. Assume that there exists $x in RR^n$ satisfying $A x <= b$, but there does not exist any $x in RR^n$ satisfying both $A x <= b$ and $c^T x = d$ simultaneously. Prove that there exists $y in RR^m$ satisfying:
+$y^T A = c^T$ and $y^T b != d$.
+
+*Solution*:
+Consider the system of $m+2$ inequalities:
+$
+A x <= b \ 
+c^T x <= d \ 
+-c^T x <= -d
+$
+
+By assumption, this system has no solution. Using Farkas' Lemma, there exist $y in RR^m$, $lambda, mu in RR$ such that: $y >= 0$, $lambda, mu >= 0$, $y^T A + lambda c^T - mu c^T = 0$, $y^T b + lambda d - mu d < 0$. Suppose for contradiction that $lambda - mu = 0$. Then the condition reduces to: $y^T A = 0$, $y^T b < 0$. This contradicts the assumption that $A x <= b$ has a solution. Therefore, $lambda - mu != 0$. Define: $y' := -y/ (lambda - mu) $
+Then we have: $y'^(T)A = c^T, quad y'^T b != d$ as required.
+
+== Separating polyhedra in the plane
+
+Consider two polyhedra $P_1 subset.eq RR^2$ and $P_2 subset.eq RR^2$ in the plane. Assume $P_1 inter P_2 = emptyset$. Prove that there exists a vector $v in RR^2$ and a scalar $w$ such that $P_1 subset.eq {x in RR^2 : x dot v ≤ w}$ and $P_2 subset.eq {x in RR^2 : x dot v > w}$. 
+
+*Solution*:
+Let $P_1 = {x in RR^2 : A_1 x <= b_1}$ and $P_2 = {x in RR^2 : A_2 x <= b_2}$, where $A_1, A_2 in RR^(m times 2)$ and $b_1, b_2 in RR^m$ for some $m in NN$.
+
+Since $P_1 inter P_2 = emptyset$, the system $mat(A_1; A_2;) x <= vec(b_1, b_2)$ has no solution. By Farkas' Lemma, there exists $y in RR^(2m)$ with $y >= 0$, $y^T mat(A_1; A_2;) = 0$ and $y^T vec(b_1, b_2) < 0$. Let $y = vec(y_1, y_2)$ with $y_1, y_2 in RR^m$. Then:
+- $y_1^T A_1 + y_2^T A_2 = 0 => y_1^T A_1 = - y_2^T A_2$
+- $y_1^T b_1 < - y_2^T b_2$
+
+Define $v := y_1^T A_1 in RR^2$ and $w := y_1^T b_1 in RR$. We now show:
+- For arbitrary $x in P_1$: $A_1 x <= b_1 => x dot v = y_1^T A_1 x <= y_1^T b_1 = w$
+- For arbitrary $x in P_2$: $A_2 x <= b_2 => y_2^T A_2 x <= y_2^T b_2 => -y_1^T A_1 x <= y_2^T b_2 < - y_1^T b_1 => y_1^T A_1 x > y_1^T b_1 => x^T v > w$
+
+Thus $P_1 subset.eq {x in RR^2 : x dot v <= w}$ and $P_2 subset.eq {x in RR^2 : x dot v > w}$.
+
 == Fourier-Motzkin Elimination
 
 Basically we want to go from $m$ inequalities with $n$ variables to possibly $m^2/4$ inequalities with $n-1$ variables. Geometrically this is analogous to projecting the shadow of our "cone" from $n$-D to $n-1$-D.

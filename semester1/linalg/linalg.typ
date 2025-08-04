@@ -256,7 +256,7 @@ For any $A x = b$ we have three options: 1) No solution 2) One solution 3) Infin
 - For non-square matrices $Q Q^T = I$ may _not_ hold.
 - Orthonormal matrices preserve *norm* (i.e $det(Q) = plus.minus 1$ and $norm(Q x) = norm(x)$)
 - Orthonormal matrices preserve *angle*.
-- $A^(-1)$ is orthonormal. $A B$ is orthonormal (since $(A B)(A B)^T = A B B^T A^T = I$)
+- $A^(-1)$ is orthonormal. $A B$ is orthonormal (since $(A B)(A B)^T = A B B^T A^T = I$)  
 
 == Gram-Schmidt
 

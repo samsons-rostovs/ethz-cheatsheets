@@ -426,14 +426,15 @@ Let $z = (a + b i) in CC$.
 *Hermitian of a matrix:* 
 Basically transpose and conjugate each entry.
 
-#colbreak()
-
 *Properties:*
 - $z + overline(z) = 2 Re(z) = 2 a$
 - $z - overline(z) = 2i Im(z) = 2i b$
 - $norm(z) = norm(overline(z))$
 - $z^(-1) = overline(z)/norm(z)^2$ (multiplicative inverse)
+#colbreak()
 - *Triangle Inequality:* $norm(x + y) <= norm(x) + norm(y)$
+- *Division:* Let $z_1 = a + b i$, $z_2 = c + d i$.
+Then: $z_1 / z_2 = ((a + b i) dot (c - d i))/((c + d i) dot (c - d i)) = ((a c + b d)+i (b c - a d))/(c^2 + d^2)$
 
 *Eulers Formula:*
 - $e^(i theta) = cos theta + i sin theta$
